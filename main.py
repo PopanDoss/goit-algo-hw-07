@@ -33,6 +33,6 @@ def main():
         else:
             print("Invalid command.")
             
-#Запускаємо функцію
+#Запускаємо функці
 if __name__ == "__main__":
     main()

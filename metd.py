@@ -3,12 +3,6 @@ from datetime import datetime as dtdt
 import re 
 import datetime as dt
 
-
-def parse_input(user_input):
-    cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
-    return cmd, *args
-
 class Field:
     def __init__(self, value):
         self.value = value
@@ -76,10 +70,12 @@ class Record:
         return self.name.value, self.phones
 
     def __str__(self):
-        if self.birthday != None:
+        if self.birthday :
             return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday.value}"
         else: 
             return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+        
+
 class AddressBook(UserDict):
     
     def add_record(self, record):
@@ -127,6 +123,19 @@ class AddressBook(UserDict):
 
         #Повертаємо отриманий список словників
         return list_birthday_days 
+
+    def __str__(self) :
+        result = []
+        
+        for record in self.data.values():
+            contact = {"Contact name": record.name.value, "phones": [p.value for p in record.phones]}
+
+            if record.birthday:
+                contact["birthday"] = str(record.birthday.value)
+
+            result.append(contact)
+
+        return 
 
 
 
