@@ -36,9 +36,11 @@ def add_contact(args):
         name = metd.Record(name)
         name.add_phone(phone)
         book.add_record(name)
-        return "Contact added."
+        massage = "Contact added."
+        return massage
     else :
-        return "Contact already exists"
+        massage = "Contact already exists"
+        return massage
 
 #Функція, що змінює номер 
 @input_error
@@ -49,9 +51,11 @@ def  change_contact(args):
     if record:
         oldphone = record.phones[0].value
         record.edit_phone(oldphone, phone)
-        return f"Phone {oldphone} changed to {phone}" 
+        massage =  f"Phone {oldphone} changed to {phone}" 
+        return massage
     else:
-        return f"Contact {name} not found"
+        massege = f"Contact {name} not found"
+        return massage
 
 #Функція, що відображає телефон  
 @input_error
@@ -61,19 +65,22 @@ def show_phone(args) :
 
     if record :    
         result = ', '.join(map(str, record.phones))
-        return f"Contact {name} phone {result}"
+        massage = f"Contact {name} phone {result}"
+        return massage
     else:
-        return f"Contact {name} not found"
+        massage = f"Contact {name} not found"
+        return massage
 
 #Функція,що відображає всі записи
 @input_error
 def show_all(book):
 
     if len(book)>0 :
-        result = book.__str__()
-        return result
+        message = book.__str__()
+        return message
     else: 
-        return "Сontact list is empty"
+        message = "Сontact list is empty"
+        return message
     
 #Функція, що додає дні народження 
 @input_error
@@ -84,9 +91,11 @@ def add_birthday(args):
 
     if record :
         record.add_birthday(bdays)
-        return "Birthday added"
+        message = "Birthday added"
+        return message
     else:
-        return f"Contact {name} not found"
+        message = f"Contact {name} not found"
+        return message
 
 #Функція, що показує день народження
 @input_error
@@ -96,17 +105,21 @@ def show_birthday(args):
 
     if record:
         if record.birthday:
-            bday = record.birthday.value    
-            return f"Contact name: {name}, birthday: {bday}"
+            bday = record.birthday.value 
+            message =  f"Contact name: {name}, birthday: {bday}"    
+            return message
         else :
-            return f" Contact {name} birthday not found"
+            message = f" Contact {name} birthday not found"
+            return message
     else:
-        return f"Contact {name} not found"
+        message = f"Contact {name} not found"
+        return message
 
 #Функція, що виводить всі дні народження 
 @input_error
 def birthdays():
-    return book.get_upcoming_birthdays()
+    message = book.get_upcoming_birthdays()
+    return message
 
 
      

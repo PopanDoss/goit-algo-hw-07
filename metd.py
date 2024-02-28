@@ -128,18 +128,18 @@ class AddressBook(UserDict):
         result = []
         
         for record in self.data.values():
-            contact = {"Contact name": record.name.value, "phones": [p.value for p in record.phones]}
-
+            
             if record.birthday:
-                contact["birthday"] = str(record.birthday.value)
+                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones]) }, birthday: {record.birthday.value};'
+                result.append(contact)
 
-            result.append(contact)
+            else:
+                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones])};'
+                result.append(contact)
 
-        return 
+        return result
+    
 
-
-
-        
   
 
 if __name__ == "__main__":
