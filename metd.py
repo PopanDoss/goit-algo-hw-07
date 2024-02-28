@@ -1,7 +1,7 @@
 from collections import UserDict
 from datetime import datetime as dtdt
-import re 
 import datetime as dt
+import re 
 
 class Field:
     def __init__(self, value):
@@ -98,28 +98,28 @@ class AddressBook(UserDict):
        
         for user in self.data.values():
             
-            birthday = user.birthday.value
-
-            birthday = birthday[:6]+str(today.year)
-            birthday_this_year = dtdt.strptime(birthday, "%d.%m.%Y").date()        
+            if user.birthday : 
+                
+                birthday = user.birthday.value[:6]+str(today.year)
+                birthday_this_year = dtdt.strptime(birthday, "%d.%m.%Y").date()        
+                
+                if birthday_this_year < today:
+                    pass
             
-            if birthday_this_year < today:
-                pass
-           
-            else:
-                different_day = (birthday_this_year - today).days
-                if 7>= different_day>=0:
+                else:
+                    different_day = (birthday_this_year - today).days
+                    if 7>= different_day>=0:
 
-                    #Якщо так, визначаємо який це день тижня
-                    day_in_week = birthday_this_year.isoweekday()
+                        #Якщо так, визначаємо який це день тижня
+                        day_in_week = birthday_this_year.isoweekday()
 
-                    #Змінюємо дату на понеділок,якщо вона потрапляєна на вихідні, та додаємо словником у список
-                    if day_in_week <6 :
-                        list_birthday_days.append({"name":user.name.value, "birthday": birthday})
-                    elif day_in_week == 6:
-                        list_birthday_days.append({"name":user.name.value, "birthday": (birthday_this_year + dt.timedelta(days=2)).strftime("%d.%m.%Y")})
-                    else :
-                        list_birthday_days.append({"name":user.name.value, "birthday": (birthday_this_year + dt.timedelta(days=1)).strftime("%d.%m.%Y")})
+                        #Змінюємо дату на понеділок,якщо вона потрапляєна на вихідні, та додаємо словником у список
+                        if day_in_week <6 :
+                            list_birthday_days.append({"name":user.name.value, "birthday": birthday})
+                        elif day_in_week == 6:
+                            list_birthday_days.append({"name":user.name.value, "birthday": (birthday_this_year + dt.timedelta(days=2)).strftime("%d.%m.%Y")})
+                        else :
+                            list_birthday_days.append({"name":user.name.value, "birthday": (birthday_this_year + dt.timedelta(days=1)).strftime("%d.%m.%Y")})
 
         #Повертаємо отриманий список словників
         return list_birthday_days 
@@ -130,14 +130,14 @@ class AddressBook(UserDict):
         for record in self.data.values():
             
             if record.birthday:
-                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones]) }, birthday: {record.birthday.value};'
+                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones]) }, birthday: {record.birthday.value}'
                 result.append(contact)
 
             else:
-                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones])};'
+                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones])}'
                 result.append(contact)
 
-        return result
+        return str(result)
     
 
   

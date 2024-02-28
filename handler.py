@@ -33,9 +33,9 @@ def add_contact(args):
 
     name, phone = args
     if name not in book :
-        name = metd.Record(name)
-        name.add_phone(phone)
-        book.add_record(name)
+        record = metd.Record(name)
+        record.add_phone(phone)
+        book.add_record(record)
         massage = "Contact added."
         return massage
     else :
@@ -54,7 +54,7 @@ def  change_contact(args):
         massage =  f"Phone {oldphone} changed to {phone}" 
         return massage
     else:
-        massege = f"Contact {name} not found"
+        massage = f"Contact {name} not found"
         return massage
 
 #Функція, що відображає телефон  
@@ -73,14 +73,8 @@ def show_phone(args) :
 
 #Функція,що відображає всі записи
 @input_error
-def show_all(book):
-
-    if len(book)>0 :
-        message = book.__str__()
-        return message
-    else: 
-        message = "Сontact list is empty"
-        return message
+def show_all(book): 
+        return book     
     
 #Функція, що додає дні народження 
 @input_error
