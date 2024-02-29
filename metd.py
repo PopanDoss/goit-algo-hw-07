@@ -26,7 +26,7 @@ class Phone(Field):
         
 class Birthday(Field):
     def __init__(self, value):
-        pattern= r"(0[1-9]|1[0-9]|2[0-9]|3[0-1])\.(0[1-9]|1[0-2])\.([0-9][0-9][0-9][0-9])"
+        pattern= r"(0[1-9]|1[0-9]|2[0-9]|3[0-1])\.(0[1-9]|1[0-2])\.([0-9]{4})"
            
         if re.match(pattern, value) :
             super().__init__(value)
