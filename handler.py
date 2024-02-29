@@ -9,13 +9,10 @@ def input_error(func) :
         try :
             return func(*args, **kwargs)
         except ValueError:
-            print(ValueError)
             return "Enter the argument for the command"
         except KeyError :
-            print(KeyError)
             return  "Name is Not Found"
         except IndexError :
-            print(IndexError)
             return "Enter the argument for the command"
     return inner
 

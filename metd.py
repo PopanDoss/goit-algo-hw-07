@@ -26,12 +26,12 @@ class Phone(Field):
         
 class Birthday(Field):
     def __init__(self, value):
-        try:
-            pattern= r"(\d{1,2})\.(\d{1,2})\.(\d{4})"
-            if re.match(pattern, value) :
-                super().__init__(value)   
-        except ValueError:
-            raise ValueError("Invalid date format. Use DD.MM.YYYY")
+        pattern= r"(0[1-9]|1[0-9]|2[0-9]|3[0-1])\.(0[1-9]|1[0-2])\.([0-9][0-9][0-9][0-9])"
+           
+        if re.match(pattern, value) :
+            super().__init__(value)
+        else:
+            raise ValueError ("Invalid date format. Use DD.MM.YYYY")
 
 
 class Record:
@@ -137,7 +137,7 @@ class AddressBook(UserDict):
                 contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones])}'
                 result.append(contact)
 
-        return str(result)
+        return "\n".join(result)
     
 
   
@@ -163,3 +163,7 @@ if __name__ == "__main__":
     print(bday)
 
     print(book.find("John"))
+    
+
+  
+

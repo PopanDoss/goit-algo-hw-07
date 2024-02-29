@@ -1,7 +1,6 @@
 from pathlib import Path 
 import handler 
 
-
 # Створюємо функцію для взаємодії користувача з інтерфейсом 
 def main():
 
