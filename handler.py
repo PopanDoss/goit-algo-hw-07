@@ -9,7 +9,7 @@ def input_error(func) :
         try :
             return func(*args, **kwargs)
         except ValueError:
-            return "Enter the argument for the command"
+            return "Enter the correct argument for the command"
         except KeyError :
             return  "Name is Not Found"
         except IndexError :
@@ -96,7 +96,7 @@ def show_birthday(args):
 
     if record:
         if record.birthday:
-            bday = record.birthday.value 
+            bday = record.birthday.value.strftime("%d.%m.%Y")
             message =  f"Contact name: {name}, birthday: {bday}"    
             return message
         else :

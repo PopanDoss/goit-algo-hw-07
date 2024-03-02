@@ -26,11 +26,18 @@ class Phone(Field):
         
 class Birthday(Field):
     def __init__(self, value):
-        pattern= r"(0[1-9]|1[0-9]|2[0-9]|3[0-1])\.(0[1-9]|1[0-2])\.([0-9]{4})"
-           
-        if re.match(pattern, value) :
-            super().__init__(value)
-        else:
+         
+        try :
+            bday = dtdt.strptime(value, "%d.%m.%Y")
+            start_date = dtdt.strptime("01.01.1900", "%d.%m.%Y")
+            today = dtdt.today()
+
+            if start_date <= bday <= today : 
+                bday_date = bday.date()
+                super().__init__(bday_date)
+            else: 
+                raise ValueError ("Invalid date format. Use DD.MM.YYYY")
+        except :
             raise ValueError ("Invalid date format. Use DD.MM.YYYY")
 
 
@@ -71,7 +78,7 @@ class Record:
 
     def __str__(self):
         if self.birthday :
-            return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday.value}"
+            return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday.value.strftime("%d.%m.%Y")}"
         else: 
             return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
         
@@ -99,9 +106,9 @@ class AddressBook(UserDict):
         for user in self.data.values():
             
             if user.birthday : 
-                
-                birthday = user.birthday.value[:6]+str(today.year)
-                birthday_this_year = dtdt.strptime(birthday, "%d.%m.%Y").date()        
+
+                birthday_this_year = user.birthday.value.replace(year=today.year)
+                birthday = birthday_this_year.strftime("%d.%m.%Y")        
                 
                 if birthday_this_year < today:
                     pass
@@ -122,7 +129,7 @@ class AddressBook(UserDict):
                             list_birthday_days.append({"name":user.name.value, "birthday": (birthday_this_year + dt.timedelta(days=1)).strftime("%d.%m.%Y")})
 
         #Повертаємо отриманий список словників
-        return list_birthday_days 
+        return list_birthday_days
 
     def __str__(self) :
         result = []
@@ -130,7 +137,7 @@ class AddressBook(UserDict):
         for record in self.data.values():
             
             if record.birthday:
-                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones]) }, birthday: {record.birthday.value}'
+                contact = f'Contact name: {record.name.value}, phones : {str([p.value for p in record.phones]) }, birthday: {record.birthday.value.strftime("%d.%m.%Y")}'
                 result.append(contact)
 
             else:
